@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ location.name }}</title>
+    {% load static %}
+
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+    />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style2.css' %}" />
+
+    <link rel="icon" href="{% static 'files/logo.png' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Paytone+One&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/boxicons@latest/css/boxicons.min.css"
+    />
+    <style>
+      navbar li {
+        color: #08ffff;
+      }
+      .footer {
+        padding-top: 0px;
+        margin-top: 0px;
+      }
+
+      /* Payment Button Styles */
+      .btn-pay {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background: linear-gradient(135deg, #008eff, #0000ff);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 16px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(255, 127, 80, 0.3);
+        width: 90%;
+        margin-top: 20px;
+        text-align: center;
+      }
+
+      .btn-pay:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 7px 20px rgba(255, 127, 80, 0.4);
+        background: linear-gradient(135deg, #0000ff, #008eff);
+      }
+
+      .btn-pay i {
+        font-size: 18px;
+      }
+
+      /* Payment processing overlay */
+      .payment-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .payment-modal {
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 500px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      .payment-modal h3 {
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      .payment-modal p {
+        margin-bottom: 25px;
+        color: #666;
+      }
+
+      .spinner {
+        border: 4px solid rgba(0, 0, 0, 0.1);
+        border-left-color: #008eff;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 20px;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .close-modal {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #f2f2f2;
+        color: #333;
+        border-radius: 5px;
+        text-decoration: none;
+        margin-top: 15px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .close-modal:hover {
+        background-color: #e6e6e6;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    {% include 'navbar.html' %}
+
+    <!-- Main Content -->
+    <header class="banner">
+      <img
+        src="{% static location.backimage %}"
+        alt="{{ location.name }}"
+        class="banner-img"
+      />
+    </header>
+
+    <section class="details">
+      <div class="left-section">
+        <h1>{{ location.name }}</h1>
+        <h3>{{ location.line }}</h3>
+        <div class="icons">
+          <div class="icon-item">
+            <i class="uil uil-calendar-alt"></i>
+            <p>{{ location.duration }}</p>
+          </div>
+          <div class="icon-item">
+            <i class="uil uil-map"></i>
+            <p>Difficulty: {{ location.difficulty }}</p>
+          </div>
+          <div class="icon-item">
+            <i class="uil uil-users-alt"></i>
+            <p>Age Group: {{ location.age_group }}</p>
+          </div>
+          <div class="icon-item">
+            <i class="uil uil-mountains-sun"></i>
+            <p>Max Altitude: {{ location.altitude }}</p>
+          </div>
+        </div>
+        <div class="about" style="padding-bottom: 20px; padding-top: 40px">
+          <h4>Places To Visit</h4>
+          <p>{{ location.about }}</p>
+          <br /><br />
+          {% if location.brochure %}
+          <a href="{{ location.brochure.url }}" class="btn-brochure" download
+            >Download Brochure</a
+          >
+          {% endif %}
+        </div>
+      </div>
+      <div class="right-section">
+        <div class="price-card">
+          <h2>{{ location.price }}</h2>
+          <ul>
+            {% for item in location.includes %}
+            <li>{{ item }}</li>
+            {% endfor %}
+          </ul>
+          <a href="" id="pay-now-btn" class="btn-pay">
+            <i class="uil uil-credit-card"></i>Pay Now
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <div class="itinerary-map-container">
+      {% include 'itinerary.html' %}
+      <!-- Travel Animation Map -->
+      <div class="travel-map">
+        <h3>Travel Route</h3>
+        <div id="map"></div>
+      </div>
+    </div>
+
+    <!-- Payment Processing Overlay -->
+    <div class="payment-overlay" id="payment-overlay">
+      <div class="payment-modal">
+        <div class="spinner"></div>
+        <h3>Processing Your Payment</h3>
+        <p>You'll be redirected to our secure payment gateway in a moment...</p>
+        <a href="#" class="close-modal" id="close-modal">Cancel</a>
+      </div>
+    </div>
+
+    <!-- MapLibre Scripts -->
+    <link
+      href="https://unpkg.com/maplibre-gl@3.2.0/dist/maplibre-gl.css"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/maplibre-gl@3.2.0/dist/maplibre-gl.js"></script>
+
+    <script>
+      var route = {{ route|safe }};
+      var startLocation = route.length > 0 ? route[0].coords : [74.8581, 32.6927]; // Default
+
+      var map = new maplibregl.Map({
+          container: "map",
+          style: "https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json",
+          center: startLocation,
+          zoom: 7,
+          pitch: 50,
+      });
+
+      // Add markers for locations without popups
+      route.forEach((point, index) => {
+          var markerColor = (index === 0) ? "green" : (index === route.length - 1) ? "red" : "blue";
+          new maplibregl.Marker({ color: markerColor })
+              .setLngLat(point.coords)
+              .addTo(map);
+      });
+
+      // Draw Route Line
+      map.on("load", function () {
+          if (route.length > 1) {
+              map.addSource("route", {
+                  "type": "geojson",
+                  "data": {
+                      "type": "Feature",
+                      "geometry": {
+                          "type": "LineString",
+                          "coordinates": route.map(point => point.coords)
+                      }
+                  }
+              });
+
+              map.addLayer({
+                  "id": "route",
+                  "type": "line",
+                  "source": "route",
+                  "layout": { "line-join": "round", "line-cap": "round" },
+                  "paint": { "line-color": "#ff7f50", "line-width": 4 }
+              });
+
+              // Add text labels for each stop
+              route.forEach((point) => {
+                  map.addLayer({
+                      "id": `label-${point.name}`,
+                      "type": "symbol",
+                      "source": {
+                          "type": "geojson",
+                          "data": {
+                              "type": "Feature",
+                              "geometry": {
+                                  "type": "Point",
+                                  "coordinates": point.coords
+                              },
+                              "properties": { "title": point.name }
+                          }
+                      },
+                      "layout": {
+                          "text-field": ["get", "title"],
+                          "text-size": 14,
+                          "text-anchor": "top",
+                          "text-offset": [0, 1.2],
+                          "text-font": ["Open Sans Bold"]
+                      },
+                      "paint": {
+                          "text-color": "#000000",
+                          "text-halo-color": "#ffffff",
+                          "text-halo-width": 1.5
+                      }
+                  });
+              });
+          }
+      });
+
+      // Vehicle Animation
+      var vehicle = document.createElement("div");
+      vehicle.style.width = "35px";
+      vehicle.style.height = "35px";
+      vehicle.style.backgroundImage = "url(https://cdn-icons-png.flaticon.com/512/3448/3448333.png)";
+      vehicle.style.backgroundSize = "cover";
+      vehicle.style.borderRadius = "50%";
+
+      var vehicleMarker = new maplibregl.Marker(vehicle)
+          .setLngLat(route[0].coords)
+          .addTo(map);
+
+      let index = 0;
+      let traveledPath = [];
+
+      function moveVehicle() {
+          if (index >= route.length - 1) {
+              index = 0;
+              traveledPath = [];
+              map.getSource("route").setData({
+                  type: "Feature",
+                  geometry: { type: "LineString", coordinates: traveledPath },
+              });
+          }
+
+          let start = route[index].coords;
+          let end = route[index + 1].coords;
+          let steps = 100, step = 0;
+
+          let interval = setInterval(() => {
+              if (step < steps) {
+                  let newLng = start[0] + (end[0] - start[0]) * (step / steps);
+                  let newLat = start[1] + (end[1] - start[1]) * (step / steps);
+
+                  vehicleMarker.setLngLat([newLng, newLat]);
+
+                  traveledPath.push([newLng, newLat]);
+                  map.getSource("route").setData({
+                      type: "Feature",
+                      geometry: { type: "LineString", coordinates: traveledPath },
+                  });
+
+                  map.flyTo({
+                      center: [newLng, newLat],
+                      zoom: 10,
+                      pitch: 50,
+                      bearing: 30,
+                  });
+
+                  step++;
+              } else {
+                  clearInterval(interval);
+                  index++;
+                  setTimeout(moveVehicle, 1200);
+              }
+          }, 40);
+      }
+
+      moveVehicle();
+
+      // Payment Button Click Handler
+      document.getElementById('pay-now-btn').addEventListener('click', function(e) {
+        e.preventDefault();
+
+        // Show payment processing overlay
+        document.getElementById('payment-overlay').style.display = 'flex';
+
+        // Redirect to payment gateway after brief delay (to show the animation)
+        setTimeout(function() {
+          window.location.href = "https://payments-test.cashfree.com/links?code=n878nn2082e0";
+        }, 1500);
+      });
+
+      // Close modal button
+      document.getElementById('close-modal').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('payment-overlay').style.display = 'none';
+      });
+    </script>
+
+    {% include 'footer.html' %}
+  </body>
+</html>
