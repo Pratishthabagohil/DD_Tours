@@ -3,7 +3,7 @@ services:
     name: dd-tours
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn dd_tours.wsgi:application
+    startCommand: gunicorn DD_Tours.wsgi:application
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: DD_Tours.settings
