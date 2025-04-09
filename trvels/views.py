@@ -50,6 +50,10 @@ def contact(request):
 
 def career(request):
     return render(request, 'career.html')
+def membership_view(request):
+    return render(request, 'membership.html')
+def discoverr(request):
+    return render(request, 'discoverr.html')
 
 # def location(request, id):
 #   location = Location.objects.get(id=id)  # Fetch the specific location by ID

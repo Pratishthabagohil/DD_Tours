@@ -131,6 +131,13 @@
     </style>
   </head>
   <body>
+    <div id="preloader">
+      <div class="loader">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
     <!-- Navbar -->
     {% include 'navbar.html' %}
 
@@ -218,6 +225,12 @@
     <script src="https://unpkg.com/maplibre-gl@3.2.0/dist/maplibre-gl.js"></script>
 
     <script>
+
+      document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(function () {
+          document.getElementById("preloader").style.display = "none";
+        }, 1000); // Adjust delay if needed
+      });
       var route = {{ route|safe }};
       var startLocation = route.length > 0 ? route[0].coords : [74.8581, 32.6927]; // Default
 

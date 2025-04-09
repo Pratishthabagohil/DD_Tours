@@ -317,10 +317,12 @@ TEMPLATE_DIR = BASE_DIR / 'trvels' / 'templates'
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-k483xsd(sz&2%%u)51%f&k18d_k+6y8&1h%+g!o2s&ss6^i6p^')  # Use env var
 DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'  # False in production
 ALLOWED_HOSTS = [
+    '*',
     '.vercel.app',  # Allows all Vercel subdomains
     'localhost',
     '127.0.0.1',
     'dd-tours.vercel.app',  # Your custom domain
+    'ddtourss-ez6wcjkks-pratishthabagohils-projects.vercel.app',
 ]
 
 # Application definition
@@ -335,6 +337,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'django_extensions',
     'allauth.socialaccount.providers.google',
     'trvels',
 ]
@@ -428,7 +431,8 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'priti2103')  # Use 
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'pratishthagohil57@gmail.com')
 
 # Security settings for production
-SECURE_SSL_REDIRECT = os.environ.get('SECURE_SSL_REDIRECT', 'True') == 'True'
+SECURE_SSL_REDIRECT = os.environ.get('SECURE_SSL_REDIRECT', 'False').lower() == 'true'
+
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 SECURE_BROWSER_XSS_FILTER = True

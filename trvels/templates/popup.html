@@ -28,9 +28,9 @@
         text-align: center;
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
         position: relative;
-        width: 550px; /* Increased width */
+        width: 400px; /* Increased width */
         max-width: 90%;
-        height: 600px; /* Increased height */
+        height: 500px; /* Increased height */
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -39,16 +39,19 @@
       /* Image */
       .popup img {
         width: 100%;
+        margin-top: 10px; /* Overlap with the popup box */
         height: 220px; /* Reduced image height */
         border-top-left-radius: 15px;
         border-top-right-radius: 15px;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
         object-fit: cover;
       }
 
       /* Popup Text */
       .popup-text {
         flex-grow: 1;
-        padding: 20px;
+        padding: 17px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -57,9 +60,9 @@
       /* Close Button */
       .close-btn {
         position: absolute;
-        top: 10px;
-        right: 15px;
-        font-size: 22px;
+        top: 5px;
+        right: 10px;
+        font-size: 25px;
         font-weight: bold;
         cursor: pointer;
         color: #333;
@@ -69,36 +72,34 @@
       .popup-buttons {
         display: flex;
         flex-direction: column;
-        gap: 10px;
-        margin-top: 15px;
+        gap: 8px;
+        margin-top: 16px; /* Space between buttons */
       }
 
       .btn {
         display: inline-block;
-        padding: 12px 20px;
-        font-size: 16px;
+        padding: 8px 20px;
+        font-size: 12px; /* Slightly larger font for readability */
         font-weight: bold;
         color: white;
         border-radius: 8px;
         text-decoration: none;
         transition: background 0.3s ease-in-out;
         text-align: center;
+        cursor: pointer;
+        background-color: #0086ce;
       }
 
-      .explore-btn {
-        background: #0086ce;
-      }
-
-      .explore-btn:hover {
-        background: #005f99;
+      .btn:hover {
+        background-color: #005f99;
       }
 
       .call-btn {
-        background: #0086ce;
+        background-color: #0086ce;
       }
 
       .call-btn:hover {
-        background: #005f99;
+        background-color: #005f99;
       }
     </style>
   </head>
@@ -120,44 +121,13 @@
         </div>
         <div class="popup-buttons">
           <a href="#" class="btn explore-btn">Get Started</a>
-
           <a href="#" class="btn call-btn" id="whatsappLink"
             >Chat on WhatsApp</a
           >
-
-          <script>
-            document
-              .getElementById("whatsappLink")
-              .addEventListener("click", function (event) {
-                event.preventDefault(); // Prevent default anchor behavior
-
-                var phoneNumber = "919510261656"; // Change to your desired number
-                var message = encodeURIComponent(
-                  "Hello! I am interested in planning a custom trip. I would like to know more about the destinations, packages, and services you offer. Please share the details with me. Looking forward to your response!"
-                );
-
-                // Check if the user is on a mobile device
-                if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-                  window.location.href =
-                    "https://api.whatsapp.com/send/?phone=" +
-                    phoneNumber +
-                    "&text=" +
-                    message +
-                    "&type=phone_number&app_absent=0";
-                } else {
-                  window.location.href =
-                    "https://web.whatsapp.com/send?phone=" +
-                    phoneNumber +
-                    "&text=" +
-                    message;
-                }
-              });
-          </script>
-
-          <!-- Request a Callback Button -->
-          <button class="btn call-btn" onclick="requestCallback()">
-            Request a Callback
-          </button>
+          <a href="#" class="btn call-btn" onclick="requestCallback()"
+            >Request a Callback</a
+          >
+          <!-- Made it <a> for consistency -->
         </div>
       </div>
     </div>
@@ -166,7 +136,7 @@
       document.addEventListener("DOMContentLoaded", function () {
         setTimeout(function () {
           document.getElementById("customPlanPopup").style.display = "flex";
-        }, 1000); // Show popup after 10 seconds
+        }, 1000); // Show popup after 1 second
 
         document
           .getElementById("customPlanPopup")
@@ -189,6 +159,33 @@
           alert("Thank you! Our expert will contact you soon.");
         }
       }
+
+      document
+        .getElementById("whatsappLink")
+        .addEventListener("click", function (event) {
+          event.preventDefault(); // Prevent default anchor behavior
+
+          var phoneNumber = "918732992113"; // Change to your desired number
+          var message = encodeURIComponent(
+            "Hello! I am interested in planning a custom trip. I would like to know more about the destinations, packages, and services you offer. Please share the details with me. Looking forward to your response!"
+          );
+
+          // Check if the user is on a mobile device
+          if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+            window.location.href =
+              "https://api.whatsapp.com/send/?phone=" +
+              phoneNumber +
+              "&text=" +
+              message +
+              "&type=phone_number&app_absent=0";
+          } else {
+            window.location.href =
+              "https://web.whatsapp.com/send?phone=" +
+              phoneNumber +
+              "&text=" +
+              message;
+          }
+        });
     </script>
   </body>
 </html>

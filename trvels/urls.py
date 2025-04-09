@@ -15,8 +15,8 @@ urlpatterns = [
     path('plantrip/', views.plantrip, name='plantrip'),  # Main PlanTrip Page
     path('career/', views.career, name='career'),
     path('accounts/', include('allauth.urls')),  # Django AllAuth URLs
-
-
+path('membership/', views.membership_view, name='membership'),
+path('discoverr/', views.membership_view, name='discoverr'),
     path('login/', views.login_view, name='login'),
     path('signup/', views.signup_view, name='signup'),
     path('verify-otp/', views.verify_otp_view, name='verify_otp'),

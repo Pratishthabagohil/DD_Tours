@@ -55,8 +55,8 @@
         <span></span>
     </div>
 </div>
-    {% include 'chatbot.html' %}
-
+    
+{% include 'popup.html'%}
     <div class="banner">
         <video src="{% static 'files/bgvid.mp4' %}" type="video/mp4" autoplay muted loop></video>
     
@@ -76,6 +76,7 @@
 {% comment %} {% include 'login.html' %} {% endcomment %}
             
         </nav>
+        {% include 'chatbot.html' %}
 <script>
     document.addEventListener("DOMContentLoaded", function () {
       console.log("Script loaded successfully!");
@@ -144,6 +145,8 @@
 
     </div>
 </section>
+<!-- Membership Section -->
+
 
 
 <!-- Services -->
@@ -324,6 +327,7 @@
     </div>
 </div>
 </section>
+{% include 'discoverr.html'%}
 <!-- Footer -->
 
 <section class="footer">

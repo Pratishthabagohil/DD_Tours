@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Membership Section UI</title>
+    <style>
+      /* Membership Section */
+      .membership-section {
+        padding: 70px 0;
+        background: linear-gradient(to bottom, #ffffff 0%, #e8f0f5 100%);
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        {% comment %} min-height: 100vh; /* Full viewport height for demo */ {% endcomment %}
+      }
+
+      .membership-card {
+        background: #ffffff;
+        max-width: 600px;
+        width: 100%;
+        margin: 0 20px;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+      }
+
+      .membership-card:hover {
+        transform: translateY(-10px); /* Lift effect on hover */
+      }
+
+      /* Decorative accent */
+      .membership-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: #0086ce; /* Blue accent strip */
+      }
+
+      .membership-card h2 {
+        font-size: 34px;
+        color: #333;
+        margin-bottom: 15px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        position: relative;
+      }
+
+      .membership-card h2::after {
+        content: "";
+        width: 50px;
+        height: 3px;
+        background: #0086ce;
+        display: block;
+        margin: 10px auto 0;
+        border-radius: 2px;
+      }
+
+      .membership-card p {
+        font-size: 18px;
+        color: #666;
+        line-height: 1.5;
+        margin-bottom: 30px;
+      }
+
+      .membership-btn {
+        display: inline-block;
+        padding: 12px 40px;
+        font-size: 18px;
+        font-weight: 600;
+        color: #0086ce;
+        background: transparent;
+        border: 2px solid #0086ce;
+        border-radius: 30px;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      .membership-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: #0086ce;
+        transition: all 0.4s ease;
+        z-index: -1;
+      }
+
+      .membership-btn:hover::before {
+        left: 0; /* Slide in background */
+      }
+
+      .membership-btn:hover {
+        color: white; /* Text turns white on hover */
+        box-shadow: 0 5px 15px rgba(0, 134, 206, 0.4);
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .membership-card {
+          padding: 30px 20px;
+          margin: 0 15px;
+        }
+
+        .membership-card h2 {
+          font-size: 28px;
+        }
+
+        .membership-card p {
+          font-size: 16px;
+        }
+
+        .membership-btn {
+          padding: 10px 30px;
+          font-size: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="membership-section">
+      <div class="membership-card">
+        <h2>Membership Benefits</h2>
+        <p>
+          Unlock exclusive travel perks, discounts, and priority support with
+          our membership plans.
+        </p>
+        <a href="{% url 'membership'%}" class="membership-btn">Join Now</a>
+      </div>
+    </section>
+  </body>
+</html>
